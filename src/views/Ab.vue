@@ -2,17 +2,34 @@
   <div>{{ obj.num }}</div>
   <button @click="btn">btn</button>
   <div>{{ numArr }}</div>
+  <Temp :title="obj.title" @add="addfn"/>
+  <div v-if="numa.a !== 0">
+    aaaaaa: {{ numa.a }}
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from "vue";
+import { ref,isRef, reactive, isReactive } from "vue";
+import Temp from './Temp.vue';
 let num = ref(1);
 let obj = reactive({
   num: 10,
+  title: '标题',
 });
+console.log(isRef(obj));
+console.log(isReactive(obj));
+
 function btn() {
   obj.num++;
 }
+let numa = reactive({
+  a: 0,
+});
+function addfn(num: number) {
+  console.log(num);
+  numa.a = num;
+} 
+
 let numArr = [2, 1, 34, 3, 2, 45, 22, 34, 4];
 function bubbleSort(numArr: number[]) {
   for (let i = 0; i < numArr.length - 1; i++) {
